@@ -1,0 +1,44 @@
+.comment {
+  margin: 1em;
+}
+
+.mainContentWrapper {
+  padding: var(--comment-padding);
+  border-radius: 10px;
+  background-color: var(--white);
+}
+
+.footer {
+  display: flex;
+  margin-top: var(--comment-padding);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.replyingTo {
+  color: var(--moderate-blue);
+  font-weight: var(--bold);
+}
+
+.growMax {
+  flex-basis: 100%;
+}
+
+.writingBox div {
+  margin: 0.5em 0 0 0;
+}
+
+@media (min-width: 700px) {
+  .mainContentWrapper {
+    display: flex;
+    gap: var(--comment-padding);
+    flex-direction: row-reverse;
+  }
+
+  .footer {
+    display: flex;
+    margin-top: 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

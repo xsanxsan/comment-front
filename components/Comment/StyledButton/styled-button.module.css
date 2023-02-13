@@ -1,0 +1,23 @@
+.styledButton {
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 0.75em 1.5em;
+  border-radius: 7px;
+}
+
+.primaryButton {
+  background-color: var(--moderate-blue);
+}
+
+.primaryButton:hover {
+  background-color: var(--light-grayish-blue);
+}
+
+.isCancelButton:hover {
+  background-color: var(--pale-ed);
+}
+
+.isCancelButton {
+  background-color: var(--soft-red);
+}

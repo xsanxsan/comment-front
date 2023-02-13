@@ -1,0 +1,32 @@
+.writingBox {
+  padding: var(--comment-padding);
+  border-radius: 10px;
+  background-color: var(--white);
+  margin: 1em;
+  max-width: 60em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.writingBox textarea {
+  flex-basis: 100%;
+}
+
+@media (min-width: 700px) {
+  .writingBox {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 1em;
+    align-items: flex-start;
+  }
+
+  .writingBox textarea {
+    margin-bottom: 0;
+  }
+
+  .writingBox div {
+    order: -1;
+  }
+}

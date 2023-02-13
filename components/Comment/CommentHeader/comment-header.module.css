@@ -1,0 +1,28 @@
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--comment-padding);
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.userName {
+  font-weight: var(--bold);
+  color: black;
+}
+
+.time {
+  font-weight: var(--slight-bold);
+}
+
+.you {
+  background-color: var(--moderate-blue);
+  color: var(--white);
+  padding: 0.25em 0.5em;
+  font-size: 0.75em;
+}

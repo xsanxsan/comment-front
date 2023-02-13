@@ -1,0 +1,30 @@
+.actionButtons .whiteBackground {
+  border: none;
+  cursor: pointer;
+  font-weight: var(--bold);
+  background-color: var(--white);
+}
+
+.actionButtons button svg {
+  transform: translateY(2px);
+  margin-right: 0.4em;
+}
+
+.deleteButton {
+  color: var(--soft-red);
+}
+.deleteButton:hover {
+  color: var(--pale-ed);
+}
+.replyEditButton {
+  color: var(--moderate-blue);
+}
+
+.replyEditButton:hover {
+  color: var(--light-grayish-blue);
+}
+
+.editButtons {
+  display: flex;
+  gap: 1em;
+}

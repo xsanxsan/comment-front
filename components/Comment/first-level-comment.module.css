@@ -1,0 +1,4 @@
+.replyCommentSection {
+  border-left: solid 2px var(--light-grayish-blue);
+  margin-left: 2em;
+}
