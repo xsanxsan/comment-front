@@ -1,0 +1,15 @@
+.textArea {
+  outline: none;
+  width: 100%;
+  height: 5em;
+  border-radius: 10px;
+  border-color: var(--light-gray);
+  border-width: 2px;
+  resize: none;
+  padding: 1em;
+  font-weight: var(--slight-bold);
+}
+
+.textArea:focus {
+  border-color: var(--grayish-blue);
+}

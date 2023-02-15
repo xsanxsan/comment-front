@@ -1,0 +1,22 @@
+.modalWrapper {
+    max-width: 25em;
+    margin: auto;
+    background-color: white;
+    border: solid 1px white;
+    border-radius: 10px;
+}
+
+.modalWrapper h1{
+    font-weight: var(--bold);
+    font-size: 22px;
+    color: black;
+}
+
+.modalWrapper h1, .modalWrapper p {
+    margin-bottom: 1em;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}

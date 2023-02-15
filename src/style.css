@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font: inherit;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Rubik';
+  background-color: var(--light-gray);
+  color: var(--grayish-blue);
+  font-weight: var(--classic-bold);
+}
+
+h1,
+p {
+  font-family: Lato;
+}
+
+.smallScreen {
+  display: block;
+}
+.largeScreen {
+  display: none;
+}
+.display-linebreak {
+  white-space: pre-line;
+}
+@media (min-width: 700px) {
+  .largeScreen {
+    display: block;
+  }
+
+  .smallScreen {
+    display: none;
+  }
+}
