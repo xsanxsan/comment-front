@@ -2,43 +2,38 @@ import {
   FirstLevelCommentModel,
   UpVoteDownVote,
 } from '../models/CommentModel';
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import deepClone from '../utils/deepClone'
 import data from '../data.json'
+import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080';
 
 export const commentsApi = {
   getComments: () => 
-  new Promise<FirstLevelCommentModel[]>((resolve) => {
-    console.log('Fetching comments');
-    return resolve(data as FirstLevelCommentModel[]);
-  })
-    ,
+  axios.get<FirstLevelCommentModel[]>(BASE_URL + '/comments').then(res => res.data),
+  // new Promise<FirstLevelCommentModel[]>((resolve) => {
+  //   console.log('Fetching comments');
+  //   return resolve(data as FirstLevelCommentModel[]);
+  // })
+  //   ,
   addComment: (newComment: SendComment) =>
-  fetch(BASE_URL + '/comments', {
-    method: 'POST',
+  axios.post(BASE_URL + '/comments', {
     body: JSON.stringify(newComment)
-  }).then(res => res.json()),
-    // new Promise((resolve, reject) => setTimeout(() => resolve('error'), 100)),
+  }),
   editComment: (editComment: EditComment) =>
-  fetch(BASE_URL + `/comments/${editComment.editedCommentId}`, {
-    method: 'PUT',
+  axios.put(BASE_URL + `/comments/${editComment.editedCommentId}`, {
     body: JSON.stringify(editComment)
-  }).then(res => res.json()),
-    // new Promise((resolve, reject) => setTimeout(() => resolve('error'), 100)),
+  }),
   addReply: (addReply: AddReply) =>
-  fetch(BASE_URL + `/comments/${addReply.commentId}`, {
-    method: 'POST',
+  axios.post(BASE_URL + `/comments/${addReply.commentId}/reply`, {
     body: JSON.stringify(addReply)
-  }).then(res => res.json()),
-    // new Promise((resolve, reject) => setTimeout(() => resolve('error'), 100)),
+  }),
   voteComment: (voteComment: VoteComment) =>
-  fetch(BASE_URL + `/comments/${voteComment.votedCommentId}`, {
+  axios.post(BASE_URL + `/comments/${voteComment.votedCommentId}`, {
     method: 'POST',
     body: JSON.stringify(voteComment)
-  }).then(res => res.json()),
-    // new Promise((resolve, reject) => setTimeout(() => resolve('error'), 100)),
+  }),
 };
 
 export const useComments = (): {
@@ -108,7 +103,7 @@ export const useAddComment = () => {
 
     // Always refetch after error or success:
     onSettled: () => {
-      // queryClient.invalidateQueries({ queryKey: ['comments'] });
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
   });
 };
@@ -192,10 +187,11 @@ export const useAddReply = () => {
     onMutate: async (addReply: AddReply) => {
       await queryClient.cancelQueries({ queryKey: ['comments'] });
 
+      
       const previousComments = queryClient.getQueryData<
         FirstLevelCommentModel[]
       >(['comments']);
-
+      console.log('previousComments', previousComments)
       let newComments = deepClone(previousComments!);
 
       const index = previousComments!.findIndex(
@@ -226,16 +222,17 @@ export const useAddReply = () => {
         () => newComments
       );
 
+      console.log("test")
       return { previousComments };
     },
     onError: (err, newComment, context) => {
       queryClient.setQueryData(['comments'], context!.previousComments);
     },
-
     // Always refetch after error or success:
     onSettled: () => {
-      // queryClient.invalidateQueries({ queryKey: ['comments'] });
+       queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
+    retry: false
   });
 };
 
@@ -303,5 +300,6 @@ export const useVoteComment = () => {
     onSettled: () => {
       // queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
+    retry: false
   });
 };
