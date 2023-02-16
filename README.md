@@ -1,3 +1,3 @@
 # comment-front
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-ts-l1ql3e)
+Practice app trying out some react-query
