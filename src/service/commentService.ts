@@ -26,7 +26,7 @@ export const commentsApi = {
     body: JSON.stringify(editComment)
   }),
   addReply: (addReply: AddReply) =>
-  axios.post(BASE_URL + `/comments/${addReply.commentId}/reply`, {
+  axios.post(BASE_URL + `/comments/${addReply.commentId}/replies`, {
     body: JSON.stringify(addReply)
   }),
   voteComment: (voteComment: VoteComment) =>

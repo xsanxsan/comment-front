@@ -4,7 +4,7 @@ export enum CommentStatus {
   SENT = 'SENT',
 }
 
-export type CommentReplyModel = {
+export interface CommentModel {
   id: number;
   content: string;
   createdAt: string;
@@ -17,22 +17,13 @@ export type CommentReplyModel = {
     username: string;
   };
   isEdited: boolean;
+}
+
+export interface CommentReplyModel extends CommentModel {
   replyingTo: string;
 }
 
-export type FirstLevelCommentModel = {
-  id: number;
-  content: string;
-  createdAt: string;
-  score: number;
-  user: {
-    image: {
-      png: string;
-      webp: string;
-    };
-    username: string;
-  };
-  isEdited: boolean;
+export interface FirstLevelCommentModel extends CommentModel {
   replies: CommentReplyModel[];
 }
 
