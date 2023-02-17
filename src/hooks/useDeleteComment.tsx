@@ -27,7 +27,6 @@ export const useDeleteComment = () => {
             >(
                 ['comments'],
                 (old) => {
-                    console.log("old", old)
                     let values = deepClone(old)
                     if (deleteComment.deletedCommentId === deleteComment.firstlevelCommentId) {
                         values?.splice(values?.findIndex(elem => elem.id === deleteComment.deletedCommentId), 1)
@@ -35,7 +34,6 @@ export const useDeleteComment = () => {
                         let firstLevelIndex = values?.findIndex(elem => elem.id === deleteComment.firstlevelCommentId);
                         firstLevelIndex && values?.splice(values[firstLevelIndex].replies.findIndex(elem => elem.id === deleteComment.deletedCommentId), 1)
                     }
-                    console.log("values", values)
                     return values
                 }
             );
