@@ -8,8 +8,9 @@ import {
 } from '../../models/CommentModel';
 import TextArea from '../WritingBox/TextAreaComponent/TextArea';
 import WritingBox from '../WritingBox/WritingBox';
-import { useAddReply, useEditComment } from '../../service/commentService';
 import { useState } from 'react';
+import { useAddReply } from '../../hooks/useAddReply';
+import { useEditComment } from '../../hooks/useEditComment';
 
 interface Props {
   comment: CommentReplyModel | FirstLevelCommentModel;

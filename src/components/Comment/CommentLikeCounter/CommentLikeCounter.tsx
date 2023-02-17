@@ -1,6 +1,6 @@
 import { BiMinus, BiPlus } from 'react-icons/bi';
+import { useVoteComment } from '../../../hooks/useVoteComment';
 import { UpVoteDownVote } from '../../../models/CommentModel';
-import { useVoteComment } from '../../../service/commentService';
 import styles from './comment-counter.module.css';
 
 interface Props {

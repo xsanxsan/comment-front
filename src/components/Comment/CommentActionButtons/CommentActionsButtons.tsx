@@ -5,7 +5,7 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import StyledButton from '../../StyledButton/StyledButton';
 import { useState } from 'react';
 import StyledModal from '../../StyledModal/StyledModal';
-import { useDeleteComment } from '../../../service/commentService';
+import { useDeleteComment } from '../../../hooks/useDeleteComment';
 
 interface Props {
   firstlevelCommentId: number;
@@ -20,7 +20,7 @@ interface Props {
 export default function CommentActionButtons(props: Props) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const deleteComment = useDeleteComment()
-  
+
   const handleCancelDelete = () => {
     setShowDeleteModal(false);
   }
@@ -28,7 +28,7 @@ export default function CommentActionButtons(props: Props) {
   const handleConfirmDelete = () => {
     deleteComment.mutate({
       deletedCommentId: props.commentId,
-      firstlevelCommentId: props.firstlevelCommentId 
+      firstlevelCommentId: props.firstlevelCommentId
     })
     setShowDeleteModal(false);
   }
@@ -73,7 +73,7 @@ export default function CommentActionButtons(props: Props) {
           </button>
         </>
       )}
-      <StyledModal isOpen={showDeleteModal} onConfirm={handleConfirmDelete} onCancel={handleCancelDelete}/>
+      <StyledModal isOpen={showDeleteModal} onConfirm={handleConfirmDelete} onCancel={handleCancelDelete} />
     </div>
   );
 }

@@ -1,10 +1,8 @@
 import FirstLevelComment from './Comment/FirstLevelComment';
 import WritingBox from './WritingBox/WritingBox';
-import {
-  useAddComment,
-  useComments,
-} from '../service/commentService';
 import styles from './comment-section.module.css';
+import { useComments } from '../hooks/useComments';
+import { useAddComment } from '../hooks/useAddComment';
 
 export default function ComentSection() {
   let { comments, isLoading } = useComments();
@@ -20,7 +18,6 @@ export default function ComentSection() {
     return <h1>IsLoading</h1>;
   }
 
-  console.log("comment", comments)
   return (
     <div className={styles.mainContent}>
       {comments.map((comment) => (
