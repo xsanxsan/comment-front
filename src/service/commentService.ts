@@ -12,13 +12,15 @@ const BASE_URL = 'http://localhost:8080';
 export const commentsApi = {
   getComments: () => 
   axios.get<FirstLevelCommentModel[]>(BASE_URL + '/comments').then(res => res.data),
-  // new Promise<FirstLevelCommentModel[]>((resolve) => {
-  //   console.log('Fetching comments');
-  //   return resolve(data as FirstLevelCommentModel[]);
-  // })
-  //   ,
   addComment: (newComment: SendComment) =>
   axios.post(BASE_URL + '/comments', newComment),
+  deleteComment: (deleteComment: DeleteComment) => {
+    if (deleteComment.deletedCommentId === deleteComment.firstlevelCommentId) {
+      return axios.delete(BASE_URL + `/comments/${deleteComment.deletedCommentId}`)
+    } else {
+      return axios.delete(BASE_URL + `/comments/${deleteComment.firstlevelCommentId}/replies/${deleteComment.deletedCommentId}`)
+    }
+  },
   editComment: (editComment: EditComment) =>
   axios.put(BASE_URL + `/comments/${editComment.editedCommentId}`, editComment),
   addReply: (addReply: AddReply) =>
@@ -95,6 +97,54 @@ export const useAddComment = () => {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
+    },
+  });
+};
+
+interface DeleteComment {
+  deletedCommentId: number;
+  firstlevelCommentId: number;
+}
+
+
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: commentsApi.deleteComment,
+    onMutate: async (deleteComment: DeleteComment) => {
+      await queryClient.cancelQueries({ queryKey: ['comments'] });
+
+      const previousComments = queryClient.getQueryData<
+        FirstLevelCommentModel[]
+      >(['comments']);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData<
+      FirstLevelCommentModel[]
+    >(
+        ['comments'],
+        (old) => { 
+          let values = deepClone(old)
+          if (deleteComment.deletedCommentId === deleteComment.firstlevelCommentId) {
+            values?.splice(values?.findIndex(elem => elem.id === deleteComment.deletedCommentId))
+          } else {
+            let firstLevelIndex = values?.findIndex(elem => elem.id === deleteComment.firstlevelCommentId);
+            firstLevelIndex && values?.splice(values[firstLevelIndex].replies.findIndex(elem => elem.id === deleteComment.deletedCommentId))
+          }
+          console.log("values", values)
+          return values}
+      );
+
+      return { previousComments };
+    },
+    onError: (err, newComment, context) => {
+      queryClient.setQueryData(['comments'], context!.previousComments);
+    },
+
+    // Always refetch after error or success:
+    onSettled: () => {
+      // queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
   });
 };

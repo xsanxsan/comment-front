@@ -20,6 +20,7 @@ export default function ComentSection() {
     return <h1>IsLoading</h1>;
   }
 
+  console.log("comment", comments)
   return (
     <div className={styles.mainContent}>
       {comments.map((comment) => (

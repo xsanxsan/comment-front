@@ -77,6 +77,8 @@ export default function Comment(props: Props) {
         <div className={styles.mainContentWrapper}>
           <div className={styles.growMax}>
             <CommentHeader
+              commentId={props.comment.id}
+              firstLevelCommentId={props.firstLevelCommentId}
               createdAt={props.comment.createdAt}
               user={props.comment.user}
               handleEdit={handleEdit}
@@ -103,6 +105,8 @@ export default function Comment(props: Props) {
             />
             <div className={'smallScreen'}>
               <CommentActionButtons
+                commentId={props.comment.id}
+                firstlevelCommentId={props.firstLevelCommentId}
                 isEditing={isEditing}
                 handleEdit={handleEdit}
                 handleCancelEdit={handleCancelEdit}

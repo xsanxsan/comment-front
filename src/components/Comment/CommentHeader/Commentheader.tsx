@@ -6,6 +6,8 @@ import styles from './comment-header.module.css';
 interface Props {
   user: FirstLevelCommentModel['user'];
   createdAt: string;
+  firstLevelCommentId: number;
+  commentId: number;
   handleEdit: () => void;
   isEditing: boolean;
   handleCancelEdit: () => void;
@@ -24,6 +26,8 @@ export default function CommentHeader(props: Props) {
       </div>
       <div className={'largeScreen'}>
         <CommentActionButtons
+          commentId={props.commentId}
+          firstlevelCommentId={props.firstLevelCommentId}
           isEditing={props.isEditing}
           handleEdit={props.handleEdit}
           handleCancelEdit={props.handleCancelEdit}
