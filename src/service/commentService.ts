@@ -18,22 +18,13 @@ export const commentsApi = {
   // })
   //   ,
   addComment: (newComment: SendComment) =>
-  axios.post(BASE_URL + '/comments', {
-    body: JSON.stringify(newComment)
-  }),
+  axios.post(BASE_URL + '/comments', newComment),
   editComment: (editComment: EditComment) =>
-  axios.put(BASE_URL + `/comments/${editComment.editedCommentId}`, {
-    body: JSON.stringify(editComment)
-  }),
+  axios.put(BASE_URL + `/comments/${editComment.editedCommentId}`, editComment),
   addReply: (addReply: AddReply) =>
-  axios.post(BASE_URL + `/comments/${addReply.commentId}/replies`, {
-    body: JSON.stringify(addReply)
-  }),
+  axios.post(BASE_URL + `/comments/${addReply.commentId}/replies`, addReply),
   voteComment: (voteComment: VoteComment) =>
-  axios.post(BASE_URL + `/comments/${voteComment.votedCommentId}`, {
-    method: 'POST',
-    body: JSON.stringify(voteComment)
-  }),
+  axios.post(BASE_URL + `/comments/${voteComment.votedCommentId}`, voteComment),
 };
 
 export const useComments = (): {
@@ -60,7 +51,7 @@ export const useComments = (): {
 };
 
 interface SendComment {
-  comment: string;
+  content: string;
 }
 
 export const useAddComment = () => {
@@ -81,7 +72,7 @@ export const useAddComment = () => {
         (old: any) => [
           ...old,
           {
-            content: newComment.comment,
+            content: newComment.content,
             createdAt: '1 minute ago',
             id: 1000,
             isEdited: false,

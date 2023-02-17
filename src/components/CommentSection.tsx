@@ -12,7 +12,7 @@ export default function ComentSection() {
 
   const handleSendComment = (newComment: string) => {
     if (newComment) {
-      addComment.mutate({ comment: newComment });
+      addComment.mutate({ content: newComment });
     }
   };
 
